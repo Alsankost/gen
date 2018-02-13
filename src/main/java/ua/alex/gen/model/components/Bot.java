@@ -24,7 +24,7 @@ public class Bot implements Component, Edible {
 	
 	private Paint color = Color.GREEN;
 	
-	public boolean cool = false;
+	//public boolean cool = false;
 	
 	@Override
 	public ComponentType getType() {
@@ -65,7 +65,7 @@ public class Bot implements Component, Edible {
 	private byte pointer = 0;
 	private byte direction = 0;
 	
-	public boolean testClone = false;
+	//public boolean testClone = false;
 	
 	//Energy control
 	public double getEnergy() {
@@ -108,7 +108,7 @@ public class Bot implements Component, Edible {
 				x += 1;
 				y += 1;
 		}
-		if (x < 0) x = w.getWidth();
+		if (x < 0) x = w.getWidth() - 1;
 		if (x > w.getWidth() - 1) x = 0;
 		if (y < 0) return null;
 		if (y > w.getHeight() -1) return null;
@@ -318,6 +318,10 @@ public class Bot implements Component, Edible {
 	
 	public boolean isPredator() {
 		 return predator;
+	}
+	
+	public void setPredator(boolean p) {
+		 predator = p;
 	}
 	
 	//Constructor

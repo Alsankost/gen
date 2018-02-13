@@ -22,7 +22,7 @@ public class Corpse implements Component, Edible{
 
 	@Override
 	public ComponentType getType() {
-		return null;
+		return ComponentType.CORPSE;
 	}
 
 	@Override

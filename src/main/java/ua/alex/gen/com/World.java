@@ -1,6 +1,8 @@
 package ua.alex.gen.com;
 
 import ua.alex.gen.model.Component;
+import ua.alex.gen.model.XmlWorld;
+import ua.alex.gen.utilus.SimplePoint;
 
 public class World implements Runnable {
 	private boolean isRun = false;
@@ -98,6 +100,36 @@ public class World implements Runnable {
 	
 	public void stop() {
 		isRun = false;
+	}
+	
+	public void load(XmlWorld xw) {
+		pause();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				map[x][y] = null;
+			}
+		}
+		
+		for (int i = 0; i < xw.getCount(); i++) {
+			SimplePoint pos = xw.getPosition(i);
+			map[pos.getX()][pos.getY()] = xw.getComponent(i);
+		}
+	}
+	
+	public XmlWorld save() {
+		XmlWorld tmp = new XmlWorld();
+		
+		pause();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (map[x][y] != null) {
+					tmp.add(map[x][y], x, y);
+				}
+			}
+		}
+		tmp.confirm();
+		System.out.println(tmp.getCount());
+		return tmp;
 	}
 	
 }

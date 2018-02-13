@@ -1,6 +1,12 @@
 package ua.alex.gen;
 
+import java.io.File;
 import java.util.Random;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,9 +19,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ua.alex.gen.com.World;
+import ua.alex.gen.model.XmlWorld;
 import ua.alex.gen.model.components.Bot;
 import ua.alex.gen.view.ComponentView;
 
@@ -92,6 +100,62 @@ public class Start extends Application {
 		pause.setLayoutY(190);
 		pause.setPrefWidth(80);
 		tools.getChildren().add(pause);
+		
+		FileChooser fileChooser = new FileChooser();
+		
+		Button save = new Button("Save");
+		save.setOnAction((e) -> {
+			XmlWorld xmlWorld = world.save();
+			world.pause();
+			
+			fileChooser.setTitle("Save world");
+			
+			File file = fileChooser.showSaveDialog(primaryStage);
+			if (file == null) {
+				return;
+			}
+			
+			JAXBContext jc;
+			try {
+				jc = JAXBContext.newInstance(XmlWorld.class.getPackage().getName());
+				Marshaller m = jc.createMarshaller();
+				m.marshal(xmlWorld, file);
+			} catch (JAXBException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		save.setLayoutX(10);
+		save.setLayoutY(310);
+		save.setPrefWidth(80);
+		tools.getChildren().add(save);
+		
+		Button open = new Button("Open");
+		open.setOnAction((e) -> {
+			fileChooser.setTitle("Open world");
+			
+			world.pause();
+			File file = fileChooser.showOpenDialog(primaryStage);
+			if (file == null) {
+				return;
+			}
+			
+			JAXBContext jc;
+			try {
+				jc = JAXBContext.newInstance(XmlWorld.class.getPackage().getName());
+				Unmarshaller m = jc.createUnmarshaller();
+				XmlWorld xw = (XmlWorld) m.unmarshal(file);
+				world.load(xw);
+			} catch (JAXBException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		open.setLayoutX(10);
+		open.setLayoutY(330);
+		open.setPrefWidth(80);
+		tools.getChildren().add(open);
+		
 		
 		energy = new Label();
 		energy.setLayoutX(10);
