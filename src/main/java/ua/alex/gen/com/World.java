@@ -1,5 +1,12 @@
 package ua.alex.gen.com;
 
+import java.io.File;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 import ua.alex.gen.model.Component;
 import ua.alex.gen.model.XmlWorld;
 import ua.alex.gen.utilus.SimplePoint;
@@ -102,13 +109,30 @@ public class World implements Runnable {
 		isRun = false;
 	}
 	
-	public void load(XmlWorld xw) {
-		pause();
+	public void clear() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				map[x][y] = null;
 			}
 		}
+	}
+	
+	public void load(File file) {
+		pause();
+		
+		XmlWorld xw = null;
+		
+		JAXBContext jc;
+		try {
+			jc = JAXBContext.newInstance(XmlWorld.class.getPackage().getName());
+			Unmarshaller m = jc.createUnmarshaller();
+			xw = (XmlWorld) m.unmarshal(file);
+		} catch (JAXBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		clear();
 		
 		for (int i = 0; i < xw.getCount(); i++) {
 			SimplePoint pos = xw.getPosition(i);
@@ -116,7 +140,7 @@ public class World implements Runnable {
 		}
 	}
 	
-	public XmlWorld save() {
+	public void save(File file) {
 		XmlWorld tmp = new XmlWorld();
 		
 		pause();
@@ -128,8 +152,16 @@ public class World implements Runnable {
 			}
 		}
 		tmp.confirm();
-		System.out.println(tmp.getCount());
-		return tmp;
+
+		JAXBContext jc;
+		try {
+			jc = JAXBContext.newInstance(XmlWorld.class.getPackage().getName());
+			Marshaller m = jc.createMarshaller();
+			m.marshal(tmp, file);
+		} catch (JAXBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 }

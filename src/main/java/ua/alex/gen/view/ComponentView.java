@@ -18,16 +18,17 @@ public class ComponentView extends AnchorPane {
 	
 	private static EventHandler<MouseEvent> mouseClickListener = (event) -> {
 		ComponentView tmp = (ComponentView) event.getSource();
-		if (Start.world.get(tmp.x, tmp.y) == null || !(Start.world.get(tmp.x, tmp.y) instanceof Bot)) return;
+		if (Start.getWorld().get(tmp.x, tmp.y) == null || !(Start.getWorld().get(tmp.x, tmp.y) instanceof Bot)) return;
 		
-		Bot bot = (Bot) Start.world.get(tmp.x, tmp.y);
+		Bot bot = (Bot) Start.getWorld().get(tmp.x, tmp.y);
 		
 		String str = "";
 		
 		for (int i = 0; i < bot.getGenom().length; i++) {
 			str += "" + bot.getGen((byte) i) + ( ((i + 1)%4 == 0)?"\n":" " );
 		}
-		Start.codeTA.setText(str);
+		
+		MainController.setCode(str);
 		/*Bot bot = new Bot();
 		for (int i = 60; i < 64; i++) {
 			bot.setGen((byte) i, (byte) Start.random.nextInt(50));
@@ -46,6 +47,7 @@ public class ComponentView extends AnchorPane {
 		this.setHeight(RANGE);
 		
 		back = new Circle(RANGE / 2, RANGE / 2, RANGE / 2);
+		back.setVisible(false);
 		this.getChildren().add(back);
 	}
 
@@ -59,6 +61,6 @@ public class ComponentView extends AnchorPane {
 			Start.energy.setText(((Bot)p).getEnergy() + "");
 		}
 		back.setVisible(true);
-		back.setFill((p.getColor() == null)?Color.BLACK:p.getColor());
+		back.setFill((p.getColor() == null)?Color.WHITE:p.getColor());
 	}
 }

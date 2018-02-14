@@ -17,7 +17,7 @@ import ua.alex.gen.utilus.SimplePoint;
 @XmlType(name = "space")
 public class XmlWorld {
 	@XmlElement
-	@XmlElementWrapper(name = "nodes")
+	//@XmlElementWrapper(name = "nodes")
 	private XmlComponentNode[] node;
 	
 	private List<XmlComponentNode> tmpComponents = new ArrayList<XmlComponentNode>();

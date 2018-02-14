@@ -20,11 +20,14 @@ public class Bot implements Component, Edible {
 	public static final double MOVE_EXP = 0.1;
 	public static final double LIVE_EXP = 0.008;
 	
-	public static int viewMode = 0;
+	private static int viewMode = 0;
 	
 	private Paint color = Color.GREEN;
 	
 	//public boolean cool = false;
+	public static void setViewMode(int vm) {
+		viewMode = vm;
+	}
 	
 	@Override
 	public ComponentType getType() {

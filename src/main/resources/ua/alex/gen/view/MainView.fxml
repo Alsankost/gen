@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.alex.gen.view.MainController">
+   <top>
+      <BorderPane prefHeight="0.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#action_new" text="New" />
+                        <MenuItem mnemonicParsing="false" onAction="#action_open" text="Open" />
+                        <MenuItem mnemonicParsing="false" onAction="#action_save" text="Save" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" onAction="#action_close" text="Close" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Play">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#action_play" text="Play" />
+                        <MenuItem mnemonicParsing="false" onAction="#action_pause" text="Pause" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="View">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#action_setDefaultView" text="Default" />
+                        <MenuItem mnemonicParsing="false" onAction="#action_setToxicView" text="Toxic" />
+                        <MenuItem mnemonicParsing="false" onAction="#action_setEnergyView" text="Energy" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.9461400359066428" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane fx:id="frame" minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="898.0" />
+            <TextField fx:id="code" prefHeight="0.0" prefWidth="898.0" />
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>
